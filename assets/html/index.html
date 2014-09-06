@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <title>Sample Project</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div id="main" class="wrapper">
+
+  </div>
+  <script id="pizza-configuration-template" type="text/x-handlebars-template">
+    <form class="pizza-configuration">
+      <h2>Pizza Size</h2>
+      <p id="size-configuration">
+        {{#each availableSizes}}
+           <label for="size-{{@key}}">
+            <input type="radio" id="size-{{@key}}" {{checkRadio ../size @key}} name="size" value="{{@key}}">
+            {{this.label}}
+          </label>
+        {{/each}}
+      </p>
+
+      <h2>Cheese</h2>
+      <p id="cheese-configuration">
+        {{#each availableCheese}}
+          <label for="cheese-{{@key}}">
+            <input type="radio" id="cheese-{{@key}}" {{checkRadio ../cheese @key}} name="cheese" value="{{@key}}">
+            {{this.label}}
+          </label>
+        {{/each}}
+      </p>
+
+      <h2>Toppings</h2>
+      <p id="toppings-configuration">
+        {{#each availableToppings}}
+          <label for="toppings-{{@key}}">
+            <input type="checkbox" id="toppings-{{@key}}" {{checkCheckbox ../toppings @key}} name="toppings" value="{{@key}}">
+            {{this.label}}
+          </label>
+        {{/each}}
+      </p>
+
+      <h2>Extras</h2>
+      <p id="extras-configuration">
+        {{#each availableExtras}}
+          <label for="extras-{{@key}}">
+            <input type="checkbox" id="extras-{{@key}}" {{checkCheckbox ../extras @key}} name="extras" value="{{@key}}">
+            {{this.label}}
+          </label>
+        {{/each}}
+      </p>
+
+      <p>
+        <button id="submit-pizza-configuration">Next!</button>
+      </p>
+    </form>
+  </script>
+  <script src="/scripts/main.js"></script>
+</body>
+</html>
