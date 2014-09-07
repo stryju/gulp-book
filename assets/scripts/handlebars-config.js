@@ -1,6 +1,9 @@
 'use strict';
 
 var Handlebars = require('handlebars');
+var $          = require('jquery');
+
+Handlebars.registerPartial('pizzaPreview', $('#pizza-preview-template').html());
 
 Handlebars.registerHelper('checkRadio', function(value, expectedValue) {
   if (value === expectedValue) {
@@ -22,4 +25,8 @@ Handlebars.registerHelper('checkCheckbox', function(values, expectedValue) {
   }
 
   return new Handlebars.SafeString('');
+});
+
+Handlebars.registerHelper('getLabel', function(object, key) {
+  return object[key].label;
 });

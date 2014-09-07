@@ -3,6 +3,11 @@
 var $ = require('jquery');
 
 var PizzaConfiguration = function(attrs) {
+  this.size = 'medium';
+  this.cheese = 'normal';
+  this.extras = [];
+  this.toppings = [];
+
   $.extend(this, attrs);
 };
 
@@ -28,9 +33,6 @@ PizzaConfiguration.prototype = {
   availableExtras: {
     'cheese-crust': { label: 'Cheese Crust', price: 200 }
   },
-  change: function() {
-    console.log('changed', this);
-  },
   validate: function() {
     var errors = {};
 
@@ -47,6 +49,28 @@ PizzaConfiguration.prototype = {
     }
 
     return errors;
+  },
+  totalPrice: function() {
+    var availableToppings = this.availableToppings;
+    var availableExtras = this.availableExtras;
+
+    var price = this.availableSizes[this.size].price + this.availableCheese[this.cheese].price;
+
+    price += this.toppings
+      .map(function(topping) {
+        return availableToppings[topping].price;
+      })
+      .concat(this.extras.map(function(extra) {
+        return availableExtras[extra].price;
+      }))
+      .reduce(function(previous, current) {
+        return previous + current;
+      }, 0);
+
+    return price;
+  },
+  totalPriceInDollars: function() {
+    return this.totalPrice() / 100;
   }
 };
 

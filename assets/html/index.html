@@ -6,10 +6,11 @@
 </head>
 <body>
   <div id="main" class="wrapper">
-
+    <section class="pizza-configuration"></section>
+    <section class="pizza-preview"></section>
   </div>
   <script id="pizza-configuration-template" type="text/x-handlebars-template">
-    <form class="pizza-configuration">
+    <form>
       <h2>Pizza Size</h2>
       <p id="size-configuration">
         {{#each availableSizes}}
@@ -51,9 +52,35 @@
       </p>
 
       <p>
-        <button id="submit-pizza-configuration">Next!</button>
+        <button id="submit-pizza-configuration">Order now!</button>
       </p>
     </form>
+  </script>
+  <script id="pizza-preview-template" type="text/x-handlebars-template">
+    <h2>Size</h2>
+    <p class="size">{{getLabel availableSizes size}}</p>
+    <h2>Cheese</h2>
+    <p class="cheese">{{getLabel availableCheese cheese}}</p>
+    <h2>Toppings</h2>
+    <ul class="toppings">
+      {{#each toppings}}
+        <li>{{getLabel ../availableToppings this}}</li>
+      {{/each}}
+    </ul>
+    <h2>Extras</h2>
+    <ul class="extras">
+      {{#each extras}}
+        <li>{{getLabel ../availableExtras this}}</li>
+      {{/each}}
+    </ul>
+    <h2>Total price</h2>
+    <p class="total-price">$ {{totalPriceInDollars}}</p>
+  </script>
+  <script id="pizza-order-template" type="text/x-handlebars-template">
+    <h1>Thank you for your order, the pizza is on its way!</h1>
+    <p>For your convenience, here is a summary of your order:</p>
+
+    {{> pizzaPreview}}
   </script>
   <script src="/scripts/main.js"></script>
 </body>

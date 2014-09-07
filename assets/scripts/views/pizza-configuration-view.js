@@ -3,19 +3,19 @@
 var $          = require('jquery');
 var Handlebars = require('handlebars');
 
-var PizzaConfigurationView = function(model, next) {
+var PizzaConfigurationView = function(model, $el, next) {
   this.model = model;
-  this.render();
+  this.$el = $el;
   this.next = next;
+
+  this.render();
 };
 
 PizzaConfigurationView.prototype = {
   render: function() {
-    if (!this.$el) {
-      var template = Handlebars.compile($('#pizza-configuration-template').html());
-      this.$el = $(template(this.model));
-      this.registerEvents();
-    }
+    var template = Handlebars.compile($('#pizza-configuration-template').html());
+    this.$el.html(template(this.model));
+    this.registerEvents();
   },
 
   registerEvents: function() {

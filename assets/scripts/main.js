@@ -1,25 +1,32 @@
 'use strict';
 
-require('./handlebars-helpers');
-var $ = require('jquery');
+require('./handlebars-config');
+
+var $                      = require('jquery');
 var PizzaConfigurationView = require('./views/pizza-configuration-view');
-var PizzaConfiguration = require('./models/pizza-configuration');
+var PizzaPreviewView       = require('./views/pizza-preview-view');
+var PizzaOrderView         = require('./views/pizza-order-view');
+var PizzaConfiguration     = require('./models/pizza-configuration');
 
 $(document).ready(function() {
   loadPizzaConfiguration();
 });
 
 function loadPizzaConfiguration(pizzaConfiguration) {
+  var $main = $('#main');
+  var $pizzaConfiguration = $main.find('.pizza-configuration');
+  var $pizzaPreview = $main.find('.pizza-preview');
+
   pizzaConfiguration = pizzaConfiguration || new PizzaConfiguration({
     size: 'medium',
     cheese: 'normal',
     toppings: ['tomatoes', 'salami']
   });
 
-  var pizzaConfigurationView = new PizzaConfigurationView(pizzaConfiguration, loadOrderConfirmation);
-  $('#main').html(pizzaConfigurationView.$el);
+  new PizzaConfigurationView(pizzaConfiguration, $pizzaConfiguration, loadOrderConfirmation);
+  new PizzaPreviewView(pizzaConfiguration, $pizzaPreview);
 }
 
 function loadOrderConfirmation(pizzaConfiguration) {
-  console.log('loading order confirmation', pizzaConfiguration);
+  new PizzaOrderView(pizzaConfiguration, $('#main'));
 }
